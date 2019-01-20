@@ -1,0 +1,176 @@
+.score {
+  width: 90%;
+  height: 165px;
+  background: white;
+  box-shadow: $shad;
+  left: 0;
+  right: 0;
+  margin: 25px auto;
+  max-width: 400px;
+  color: #303030;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  // margin-top: 20px;
+  border-radius: $radius;
+
+  &__header {
+    margin-bottom: 5px;
+    padding: 5px 5px;
+
+    &--title {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 1.05px;
+    }
+
+    &--season {
+      margin-top: 2px;
+      font-size: 1.2rem;
+      color: #4F4E4E;
+      padding-left: 5px;
+    }
+  }
+
+  & p {
+    margin: 0;
+  }
+}
+
+.points {
+  position: absolute;
+  left: 55%;
+  display: flex;
+  align-items: baseline;
+
+  &__total {
+    margin: 0;
+
+    &--gained {
+      font-size: 40px;
+    }
+
+    &--possible {
+      font-size: 20px;
+    }
+
+    &--text {
+      font-size: 1.2rem;
+      padding-left: 5px;
+      color: rgba(0, 0, 0, 0.6);
+      ;
+    }
+  }
+
+}
+
+.details {
+  height: 50%;
+  background: #f1f5f8;
+  display: flex;
+  padding-left: 5px;
+  padding-right: 5px;
+  justify-content: space-around;
+  position: relative;
+
+  &__header {
+    font-size: 1.3rem;
+    color: $black;
+    position: absolute;
+    left: 3%;
+  }
+
+  @media screen and (max-width: 420px) {
+    justify-content: space-between;
+  }
+
+}
+
+.correctTeams {
+  padding-left: 5px;
+  padding-top: 2px;
+  // text-align: center;
+  display: flex;
+  align-items: baseline;
+  margin-top: 15px;
+
+  &__total--text {
+    font-size: 1.2rem;
+    padding-left: 5px;
+    color: rgba(0, 0, 0, 0.6);
+
+    @media screen and (max-width: 330px) {
+      font-size: 1.1rem;
+      padding-left: 3px;
+    }
+  }
+
+  &__gained {
+    font-size: 30px;
+  }
+
+  &__possible {
+    font-size: 16px;
+  }
+}
+
+.guessedPoints {
+  padding-top: 2px;
+  display: flex;
+  flex-direction: column;
+  // flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-width: 240px;
+
+  &__text {
+    font-size: 1.3rem;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  @media screen and (max-width: 420px) {
+    min-width: 210px;
+  }
+
+  @media screen and (max-width: 365px) {
+    min-width: initial;
+  }
+
+}
+
+.table {
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+
+  thead tr th {
+    border: none;
+    font-size: 1.2rem;
+    padding-bottom: 5px;
+    color: rgba(0, 0, 0, 0.7);
+
+    @media screen and (max-width: 365px) {
+      font-size: 1.1rem;
+    }
+  }
+
+  tbody {
+    // border: 1px solid #9e9d9d;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  td.offTitle {
+    font-size: 12px;
+    color: $black;
+    text-decoration: underline;
+  }
+
+  td:nth-child(odd) {
+    background: #dfeaf1;
+  }
+
+  td:nth-child(even) {
+    background: #f9f9f9;
+  }
+}

@@ -1,0 +1,7 @@
+mixin forgotForm()
+  form.form(action="/account/forgot" method="POST")
+    a.loginToggleForgot.loginToggleForgot__login(href="/login")= "< Go Back to Login"
+    h2 I forgot my password!
+    label(for="emailForgot") Email
+    input(type="email", id="emailForgot" name="email" required)
+    input.button(type="submit" value="Send a Reset")

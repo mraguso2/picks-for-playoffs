@@ -1,0 +1,50 @@
+extends layout
+
+include mixins/_game
+include mixins/_score
+block content
+  //- .inner
+  //-   h4 NFL Playoff Bracket
+  +score(year, userScore)
+  .bracket
+    .confTitles
+      .confTitles__container.confTitles__container--AFC
+        h4.confTitles__text AFC
+      .confTitles__container.confTitles__container--NFC
+        h4.confTitles__text NFC
+    .rounds
+      .round.round__AFC--wildcard
+        p.roundTitle WILDCARD
+          .games
+            each game in wildcard.AFC
+              +game(game)
+      .round.round__AFC--division
+        p.roundTitle DIVISION
+          .games
+            each game in division.AFC
+              +game(game)
+      .round.round__AFC--conference.round__conference
+        p.roundTitle.roundTitle__conference CONFERENCE
+          .games
+            each game in conference.AFC
+              +game(game)
+      .round.round__SB--superbowl.round__superbowl
+        p.roundTitle.roundTitle__superbowl SUPERBOWL
+          .games
+              each game in superbowl.SB
+                +game(game)
+      .round.round__NFC--conference.round__conference
+        p.roundTitle.roundTitle__conference CONFERENCE
+          .games
+            each game in conference.NFC
+              +game(game)
+      .round.round__NFC--division
+        p.roundTitle DIVISION
+          .games
+            each game in division.NFC
+              +game(game)
+      .round.round__NFC--wildcard
+        p.roundTitle WILDCARD
+          .games
+            each game in wildcard.NFC
+              +game(game)

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  .inner__form
+    h2 Edit Your Account
+    form(action="/account", method="POST")
+      label(for="firstName") First Name
+      input(type="text" id="firstName" name="firstName" value=user.firstName)
+      label(for="lastName") Last Name
+      input(type="text" id="lastName" name="lastName" value=user.lastName)
+      label(for="email") Email Address
+      input(type="email", name="email" value=user.email)
+      input.button(type="submit" value="Update My Account")

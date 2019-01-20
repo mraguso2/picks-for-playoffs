@@ -1,0 +1,65 @@
+mixin game(game = {})
+  .game
+    //- pre= h.dump(game)
+    - const id = `${game.eid || 'noId'}`
+    .gameCard(id=id)
+      .gameCard__top
+        //- .circle.saved.spin.spin__saved
+        .gameCard__details
+          .gameStatus.gameLocked(data-lock=`${game.eid}`)
+            if game.gameStarted
+              if game.isOver
+                .gameStatus.gameStatus__over
+                  != h.icon('lock')
+                  p.gameCard__pick GAME OVER
+              else
+                .gameStatus.gameStatus__started
+                  != h.icon('lock')
+                  p.gameCard__pick GAME STARTED
+            else
+              .gameStatus.gameStatus__active
+                p.gameCard__pick PICK A WINNER
+          p.gameCard__tertiary.time #{dateFnsFormat(game.gameTime, 'MMM Do, YYYY @ h:mm')}
+          //- p.gameCard__time #{new Date(game.gameTime).toLocaleString('en-US', { month : 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'})}
+          //- p.gameCard__time #{game.gameTime}
+        .gameCard__teams
+          - const gameEid = `${game.eid}`
+          - const pickedTeam = game.picks[0] !== undefined ? game.picks[0].winningTeamPick : ''
+          - const homeTeamPicked = pickedTeam === game.homeTeamName
+          - const awayTeamPicked = pickedTeam === game.awayTeamName
+          - const homeId = `${game.eid && game.homeTeamName ? game.eid + '_' + game.homeTeamName : 'noHomeId'}`
+          - const homeFullName = `${game.homeTeamLocation + " " + game.homeTeamName}`
+          - const awayId = `${game.eid && game.awayTeamName ? game.eid + '_' + game.awayTeamName : 'noAwayId'}`
+          - const awayFullName = `${game.awayTeamLocation + " " + game.awayTeamName}`
+          - const didHomeWin = !game.isOver ? '' : Math.max(game.homeTeamScore, game.awayTeamScore) === game.homeTeamScore ? 'winner' : 'loser'
+          - const didAwayWin = !game.isOver ? '' : Math.max(game.homeTeamScore, game.awayTeamScore) === game.awayTeamScore ? 'winner' : 'loser'
+          p.teamTitles=`Home Team ${game.isOver ? `- score: ${game.homeTeamScore}` : ''}`
+          .team.homeTeam.football__icon(class=`${game.gameStarted ? 'disabled' : ''}` class=`${didHomeWin}` data-game=`${gameEid}` data-team=`${game.homeTeamName}` class=`${homeTeamPicked ? 'picked' : ''}`)
+            if homeTeamPicked && game.isOver
+              .circle.saved.spin(class=`${didHomeWin === 'winner' ? 'correct spin__correct' : ''}` class=`${didAwayWin === 'winner' ? 'incorrect  spin__incorrect' : ''}`)
+            input.teamRadio(class=`${homeTeamPicked ? 'selected' : ''}` type="radio" id=`${homeId}` name=`${gameEid}` value=`${homeFullName}` disabled=game.gameStarted===true checked=homeTeamPicked===true)
+            label(class=`${game.gameStarted ? 'disabled' : ''}` for=`${homeId}`) #{homeFullName}
+            .homeTeam__record
+              span= `${game.homeTeamRecord || ''}`
+          p.teamTitles=`Away Team ${game.isOver ? `- score: ${game.awayTeamScore}` : ''}`
+          .team.awayTeam.football__icon(class=`${game.gameStarted ? 'disabled' : ''}` class=`${didAwayWin}` data-game=`${gameEid}` data-team=`${game.awayTeamName}` class=`${awayTeamPicked ? 'picked' : ''}`)
+            if awayTeamPicked && game.isOver
+              .circle.saved.spin(class=`${didAwayWin === 'winner' ? 'correct  spin__correct' : ''}` class=`${didHomeWin === 'winner' ? 'incorrect  spin__incorrect' : ''}`)
+            input.teamRadio(class=`${awayTeamPicked ? 'selected' : ''}` type="radio" id=`${awayId}` name=`${gameEid}` value=`${awayFullName}` disabled=game.gameStarted===true checked=awayTeamPicked===true)
+            label(class=`${game.gameStarted ? 'disabled' : ''}` for=`${awayId}`) #{awayFullName}
+            .awayTeam__record
+              span= `${game.awayTeamRecord || ''}`
+      .gameCard__points
+        p.gameCard__pick GUESS TOTAL POINTS
+        .gameCard__guess
+          p.gameCard__tertiary Home Score + Away Score
+          div.totalScore(class=`${game.gameStarted ? 'disabled' : ''}` class=`${game.isOver ? 'over' : ''}` data-total=`${gameEid}`)
+            if game.isOver
+              - const actualTotal = game.homeTeamScore !== null && game.awayTeamScore !== null ? parseFloat(game.homeTeamScore) + parseFloat(game.awayTeamScore) : '';
+              p="Your Guess: "
+                span.scoreFont=` ${game.picks[0] !== undefined ? game.picks[0].totalGameScore || '--' : '--'}`
+              p="Actual: "
+                span.scoreFont=` ${actualTotal}`
+            else
+              input.gameScore(class=`${game.gameStarted ? 'disabled' : ''}` type="number" min="0" step="1" name=`score_${game.eid || 'noId'}` value=`${game.picks[0] !== undefined ? game.picks[0].totalGameScore || '' : ''}` disabled=game.gameStarted===true)
+              span(class=`${game.gameStarted ? 'disabled' : ''}` data-score=`${gameEid}`).submitScore Submit ➔

@@ -1,0 +1,133 @@
+.top {
+  // height: 13rem;
+  background: white;
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  & a>svg {
+    height: 65px;
+    width: auto;
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+}
+
+.nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  &__section {
+    display: flex;
+    height: 65%;
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__link {
+    color: #243a52;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: .8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    border-bottom: 5px solid transparent;
+
+    &:hover,
+    &--active {
+      border-bottom-color: $primary;
+      color: white;
+      background: linear-gradient(90deg, #65D6AD 0%, #27AB83 50%, #65D6AD 100%) fixed;
+      text-shadow: 0 0px 10px hsla(0, 0%, 0%, 0.5);
+    }
+  }
+}
+
+input#menu {
+  display: none;
+}
+
+.menu {
+  display: none;
+}
+
+@media all and (max-width: 570px) {
+
+  .top a>svg {
+    margin-left: 10px;
+  }
+
+  .nav {
+
+    &__link {
+      padding: .6rem;
+      font-size: 1.3rem;
+    }
+  }
+}
+
+@media all and (max-width: 500px) {
+  .top {
+    // height: 130px;
+    flex-wrap: wrap;
+  }
+
+  .nav__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 20px;
+    height: 73px;
+  }
+
+  .menu {
+    display: initial;
+
+    &>label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    & svg {
+      width: 20px;
+      height: auto;
+      // padding-bottom: 10px;
+    }
+  }
+
+  .nav__menu~.nav {
+    display: none;
+    background: #dfeaf1;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+
+    &__section {
+      height: auto;
+    }
+  }
+
+  .avatar {
+    min-width: 35px;
+    height: 35px;
+  }
+
+  nav.nav.nav__menu--open {
+    display: flex;
+  }
+
+  .top__menu--open {
+    height: 130px;
+  }
+}

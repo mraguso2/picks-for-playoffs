@@ -1,0 +1,35 @@
+.hide {
+  text-indent: -999999px;
+  font-size: 0;
+}
+
+.button {
+  border: 0;
+  background: $primary;
+  color: $lightestPrimary;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  max-width: 200px;
+  margin-top: 15px;
+  border-radius: $radius;
+}
+
+.avatar {
+  min-width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  align-self: center;
+}
+
+.card {
+  background: white;
+  padding: 5rem;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
+}
+
+pre.error {
+  padding: 5rem;
+  background: white;
+  line-height: 3;
+  white-space: pre-line;
+}

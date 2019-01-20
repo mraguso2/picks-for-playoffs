@@ -1,0 +1,497 @@
+.gameCard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  margin-top: 3rem;
+  box-shadow: $shad;
+  max-width: 350px;
+  position: relative;
+  border-radius: $radius;
+  // animation: 0.9s cubic-bezier(0.1, 0.7, 0.61, 1.3) 0s 1 slideInFromLeft;
+
+  & p {
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    &.gameCard__pick {
+      letter-spacing: 0.1rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: hsl(211, 39%, 23%);
+    }
+
+    &.gameCard__tertiary {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    &.time:after {
+      content: " EST"
+    }
+  }
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto 2px;
+}
+
+.gameCard__guess {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.totalScore {
+  &::after {
+    content: " Saved";
+    opacity: 0;
+    color: $primary;
+    background: #EFFCF6;
+    padding: 3px;
+    border-radius: $radius;
+    font-size: 1.2rem;
+    position: absolute;
+    transition: all .8s;
+  }
+
+  &__show {
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  &.disabled {
+    // background: #f7f7f7;
+  }
+
+  &.over {
+    // background: #f7f7f7;
+    // background: $totalPointsBkgd;
+    text-align: right;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: $radius;
+
+    & span {
+      background: $totalPointsBkgd;
+      padding-left: 5px;
+      padding-right: 5px;
+      font-family: 'Courier-New', Courier, monospace;
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.gameCard__teams {
+  width: 250px;
+  max-width: 100%;
+  padding: 1rem 0.5rem;
+}
+
+.gameCard__details {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.gameCard__points {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  // background: #eaeaea;
+  background: $neutral10;
+}
+
+.gameScore {
+  background: white;
+  max-width: 100px;
+  text-align: center;
+}
+
+.team {
+  border-radius: $radius;
+  // background: #eaeaea;
+  background: $neutral10;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+  max-width: 250px;
+}
+
+.teamRadio {
+  width: auto;
+  margin-left: 10px;
+  visibility: hidden;
+}
+
+.awayTeam,
+.homeTeam {
+  display: flex;
+  // padding: 2px 2px;
+  align-items: center;
+  margin-bottom: 8px;
+  border: 2px solid transparent;
+  transition: all ease-out 0.25s;
+
+  & label {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+
+    &.disabled {
+      // cursor: not-allowed;
+    }
+  }
+
+  &__record {
+    font-size: 1.1rem;
+    text-align: center;
+    color: rgba(0, 0, 0, .6);
+    padding-right: 3px;
+  }
+}
+
+.gameCard__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.picked {
+  // border: 2px solid $primary;
+  // border: 2px solid $picked;
+  // border: 2px solid $picked2;
+  border: 2px solid $picked3;
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+
+  &.winner {
+    border-color: #199473;
+  }
+
+  &.loser {
+    border-color: #CF1124;
+
+    & label {
+      text-decoration: line-through;
+    }
+  }
+}
+
+.notPicked {
+  color: rgba(0, 0, 0, .5)
+}
+
+.primary {
+  fill: #A5B3BB;
+}
+
+.secondary {
+  fill: #0D2B3E;
+}
+
+.saved {
+  border: 0;
+  box-sizing: border-box;
+  padding: 2rem;
+
+  // Using inset box-shadow instead of border for sizing simplicity
+  box-shadow: inset 0 0 0 2px black;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+
+  // Required, since we're setting absolute on pseudo-elements
+  position: absolute;
+  vertical-align: middle;
+
+  &::before,
+  &::after {
+    box-sizing: inherit;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  &::after {
+    content: '';
+  }
+
+  &::before {
+    content: '✓';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.saved.correct {
+  &::before {
+    content: '✓';
+  }
+}
+
+.saved.incorrect {
+  &::before {
+    content: 'X'
+  }
+}
+
+.spin {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+
+  &.correct {
+    color: $primary;
+  }
+
+  &.incorrect {
+    color: #CF1124;
+  }
+
+  &::before,
+  &::after {
+    top: 0;
+    left: 0;
+  }
+
+  &::before {
+    border: 2px solid transparent;
+  }
+
+  &__saved::before,
+  &__correct::before,
+  &__incorrect::before {
+
+    transition:
+      border-top-color 0.15s linear, // Stagger border appearances
+      border-right-color 0.15s linear 0.10s,
+      border-bottom-color 0.15s linear 0.20s;
+  }
+
+  &::after {
+    border: 0 solid transparent; // Makes border thinner at the edges? I forgot what I was doing
+  }
+
+  &__saved::after,
+  &__correct::after,
+  &__incorrect::after {
+    border-left-width: 2px; // Solid edges, invisible borders
+    border-right-width: 2px; // Solid edges, invisible borders
+    transform: rotate(270deg); // Rotate around circle
+    transition:
+      transform 0.4s linear 0s,
+      border-left-width 0s linear 0.35s; // Solid edge post-rotation
+  }
+
+  // &__correct::before {
+  //   border-top-color: $primary;
+  //   border-right-color: $primary;
+  //   border-bottom-color: $primary;
+  // }
+
+  // &__correct::after {
+  //   border-top: 2px solid $primary;
+  // }
+
+  // &__incorrect::before {
+  //   border-top-color: #CF1124;
+  //   border-right-color: #CF1124;
+  //   border-bottom-color: #CF1124;
+  // }
+
+  // &__incorrect::after {
+  //   border-top: 2px solid #CF1124;
+  // }
+}
+
+.circle {
+  border-radius: 100%;
+  box-shadow: none;
+  left: 5px;
+  top: 5px;
+  // remove later
+  opacity: 1;
+
+  &.correct {
+    // background: hsla(152, 100%, 94%, 1);
+    background: hsl(153, 100%, 90%);
+    box-shadow: 0 0px 10px hsla(164, 71%, 34%, 0.3), 0 0px 10px hsla(164, 71%, 34%, 0.3);
+  }
+
+  &.incorrect {
+    background: hsl(0, 100%, 91%);
+    box-shadow: 0 0px 10px hsla(354, 85%, 44%, 0.3), 0 0px 10px hsla(354, 85%, 44%, 0.3);
+  }
+
+  &::before,
+  &::after {
+    border-radius: 100%;
+  }
+}
+
+.submitScore {
+  padding: 2px 5px;
+  font-size: 1.2rem;
+  text-decoration: underline;
+  color: #4d4de0;
+  transition: all .5s;
+  opacity: 0;
+  display: none;
+  cursor: pointer;
+
+  &__display {
+    display: inline;
+
+    &--show {
+      opacity: 1;
+    }
+  }
+}
+
+.gameStatus {
+  width: inherit;
+
+  &__started,
+  &__over {
+    display: flex;
+    align-items: center;
+    align-items: flex-end;
+  }
+
+  &__active {
+    text-align: center;
+    height: 2.7rem;
+  }
+
+  & svg {
+    width: 2.7rem;
+    height: 2.7rem;
+  }
+
+  &__shake {
+    animation: shake .8s 1 ease-out;
+    animation-direction: alternate
+  }
+}
+
+.winner {
+  color: #199473;
+}
+
+.loser {
+  color: #CF1124;
+}
+
+
+
+@keyframes shake {
+  0% {
+    transform: translateX(0) skewX(0deg);
+  }
+
+  25% {
+    transform: translateX(10px) skewX(-5deg);
+  }
+
+  50% {
+    transform: translateX(0) skewX(0deg);
+  }
+
+  75% {
+    transform: translateX(10px) skewX(-5deg);
+  }
+
+  100% {
+    transform: translateX(0) skewX(0deg);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateY(-30%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (min-width: 1100px) and (max-width: 1320px) {
+
+  .awayTeam label,
+  .homeTeam label {
+    font-size: 1.2rem;
+    padding: 8px 0;
+  }
+
+  body,
+  .totalScore.over span {
+    font-size: 1.2rem;
+  }
+
+  .gameCard {
+    & p {
+      font-size: 1.1rem;
+    }
+  }
+
+  .gameStatus svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .gameCard p.gameCard__pick {
+    font-size: inherit;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .teamTitles {
+    text-align: center;
+  }
+
+  .awayTeam label,
+  .homeTeam label {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+
+  .gameCard p.gameCard__pick,
+  .gameCard p,
+  input {
+    font-size: 1.1rem;
+  }
+
+  input {
+    font-size: 1.2rem;
+  }
+
+  .gameStatus svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .gameStatus__active {
+    height: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 374px) {
+
+  .awayTeam label,
+  .homeTeam label {
+    font-size: 1.1rem;
+  }
+}

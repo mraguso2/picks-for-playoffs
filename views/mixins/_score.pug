@@ -1,0 +1,43 @@
+mixin score(year, userScore = {})
+  .score
+    - const guessedPointsOff0 = userScore.pointsDiff.off0 ? userScore.pointsDiff.off0 * 5 : 0
+    - const guessedPointsOff1 = userScore.pointsDiff.off1 ? userScore.pointsDiff.off1 * 4 : 0
+    - const guessedPointsOff2 = userScore.pointsDiff.off2 ? userScore.pointsDiff.off2 * 3 : 0
+    - const guessedPointsOff34 = userScore.pointsDiff.off34 ? userScore.pointsDiff.off34 * 2 : 0
+    - const guessedPointsOff57 = userScore.pointsDiff.off57 ? userScore.pointsDiff.off57 * 1 : 0
+    - const totalPoints = (userScore.correctPick * 3) + guessedPointsOff0 + guessedPointsOff1 + guessedPointsOff2 + guessedPointsOff34 + guessedPointsOff57
+    .score__header
+      h4.score__header--title #{user.firstName + "'s"} Score
+      p.score__header--season #{year} season
+    .points
+      p.points__total
+        span.points__total--gained= `${totalPoints}`
+        span.points__total--possible= `/${userScore.finishedGames * 8}`
+      p.points__total--text points
+    .details
+      p.details__header Summary
+      .correctTeams
+        p.correctTeams__total
+          span.correctTeams__gained= `${userScore.correctPick}`
+          span.correctTeams__possible= `/${userScore.finishedGames}`
+        p.correctTeams__total--text teams
+      .guessedPoints
+        //- p.guessedPoints__text
+        table.table
+          thead
+            tr
+              th(colspan="5") Total Points: Guess - Actual
+          tbody
+            tr
+              td.offTitle Exact
+              td.offTitle 1 Off
+              td.offTitle 2 Off
+              td.offTitle 3-4 Off
+              td.offTitle 5-7 Off
+            tr
+              td= `${userScore.pointsDiff.off0 || 0}`
+              td= `${userScore.pointsDiff.off1 || 0}`
+              td= `${userScore.pointsDiff.off2 || 0}`
+              td= `${userScore.pointsDiff.off34 || 0}`
+              td= `${userScore.pointsDiff.off57 || 0}`
+

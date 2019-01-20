@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .inner__form
+    form.form(action="api/v1/loadGames" method="POST")
+      h2 Admin
+      label(for="season") Season
+      select(name="season" id="season")
+        option(value="2017") 2017
+        option(value="2018" selected) 2018
+      .adminRound
+        p Select a Playoff Round
+        .adminRound__wildcard
+          input(type="radio" id="wildcard" name="week" value="18")
+          label(for="wildcard") Wildcard
+        .adminRound__division
+          input(type="radio" id="division" name="week" value="19")
+          label(for="division") Division
+        .adminRound__conference
+          input(type="radio" id="conference" name="week" value="20")
+          label(for="conference") Conference
+        .adminRound__superbowl
+          input(type="radio" id="superbowl" name="week" value="22")
+          label(for="superbowl") Superbowl
+
+      input.button(type="submit" value="Load Games ➔")

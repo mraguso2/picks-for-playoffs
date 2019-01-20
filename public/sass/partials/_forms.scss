@@ -1,0 +1,62 @@
+input,
+textarea {
+  width: 100%;
+  max-width: 350px;
+  padding: 10px;
+  border: 1px solid $grey;
+  background-color: $inputBkgd;
+  border-radius: $radius;
+
+  &.input {
+    &--error {
+      border-color: red;
+    }
+  }
+}
+
+label {
+  padding: 10px 0;
+  display: block;
+}
+
+form {
+  background: white;
+  margin-top: 4rem;
+  padding: 2rem;
+  box-shadow: $shad;
+  max-width: 550px;
+
+  &.form {
+    width: 550px;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid $grey;
+  }
+}
+
+.loginToggleForgot {
+  color: #4d4de0;
+  text-decoration: underline;
+  padding-top: 1rem;
+  font-size: 1.3rem;
+
+  &__login {
+    padding-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  form {
+    &.form {
+      width: 90%;
+    }
+  }
+}
