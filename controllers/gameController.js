@@ -46,8 +46,6 @@ function calcScore(games) {
       const winningTeam =
         game.homeTeamScore === winningScore ? game.homeTeamName : game.awayTeamName;
 
-      // set total finished games
-      score.finishedGames = gamesOver.length;
       // calc correct # of teams
       if (teamPicked) {
         if (winningTeam === teamPicked) {
@@ -101,6 +99,15 @@ function calcScore(games) {
       }
       return score;
     }, {});
+  if (!userScore.correctPick) {
+    userScore.correctPick = '';
+  }
+  if (!userScore.pointsDiff) {
+    userScore.pointsDiff = {};
+  }
+  // set total finished games
+  userScore.finishedGames = gamesOver.length;
+
   return userScore;
 }
 
@@ -127,6 +134,7 @@ exports.getGames = async (req, res, next) => {
   });
 
   const userScore = calcScore(games);
+  console.log(userScore);
   res.locals.userScore = userScore;
 
   const mappedGames = {

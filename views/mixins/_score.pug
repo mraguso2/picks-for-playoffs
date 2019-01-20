@@ -1,5 +1,6 @@
 mixin score(year, userScore = {})
   .score
+    //- pre=h.dump(userScore)
     - const guessedPointsOff0 = userScore.pointsDiff.off0 ? userScore.pointsDiff.off0 * 5 : 0
     - const guessedPointsOff1 = userScore.pointsDiff.off1 ? userScore.pointsDiff.off1 * 4 : 0
     - const guessedPointsOff2 = userScore.pointsDiff.off2 ? userScore.pointsDiff.off2 * 3 : 0
