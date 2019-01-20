@@ -1364,7 +1364,8 @@ pre.error {
 
 .inner__home {
   max-width: 1000px;
-  margin: auto; }
+  margin: auto;
+  margin-top: 15px; }
   @media screen and (max-width: 1020px) {
     .inner__home {
       margin: 15px 20px; } }
@@ -1420,8 +1421,7 @@ pre.error {
   margin: 0;
   margin-bottom: 30px;
   margin-top: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05);
-  max-width: 1100px; }
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); }
   .section__text {
     background: rgba(183, 225, 212, 0.55);
     text-align: center;

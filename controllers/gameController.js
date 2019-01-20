@@ -229,3 +229,11 @@ exports.userScore = async (req, res) => {
   const games = await Game.calcUserScore(req.user, '2018');
   res.json(games);
 };
+
+exports.top = (req, res) => {
+  res.render('top', { title: 'Top' });
+};
+
+exports.rules = (req, res) => {
+  res.render('rules', { title: 'How To Play' });
+};

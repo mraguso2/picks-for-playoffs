@@ -58,7 +58,8 @@ router.get(
   gameController.bracket
 );
 
-router.get('/top', catchErrors(gameController.userScore));
+router.get('/top', gameController.top);
+router.get('/how-to-play', gameController.rules);
 
 /**
  * admin
