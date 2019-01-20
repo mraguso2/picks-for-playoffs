@@ -16,10 +16,10 @@ mixin score(year, userScore = {})
         span.points__total--possible= `/${userScore.finishedGames * 8}`
       p.points__total--text points
     .details
-      p.details__header Summary
+      //- p.details__header Summary
       .correctTeams
         p.correctTeams__total
-          span.correctTeams__gained= `${userScore.correctPick}`
+          span.correctTeams__gained= `${userScore.correctPick || 0}`
           span.correctTeams__possible= `/${userScore.finishedGames}`
         p.correctTeams__total--text teams
       .guessedPoints
@@ -27,7 +27,7 @@ mixin score(year, userScore = {})
         table.table
           thead
             tr
-              th(colspan="5") Total Points: Guess - Actual
+              th(colspan="5") Total Guess Points
           tbody
             tr
               td.offTitle Exact

@@ -8,7 +8,11 @@
   max-width: 350px;
   position: relative;
   border-radius: $radius;
+
   // animation: 0.9s cubic-bezier(0.1, 0.7, 0.61, 1.3) 0s 1 slideInFromLeft;
+  @media screen and (min-width: 350px) {
+    width: 95%;
+  }
 
   & p {
     font-size: 1.2rem;

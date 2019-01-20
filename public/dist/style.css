@@ -737,13 +737,12 @@ input#menu {
     padding: 5px 5px; }
     .score__header--title {
       margin: 0;
-      font-size: 2rem;
+      font-size: 1.5rem;
       letter-spacing: 1.05px; }
     .score__header--season {
       margin-top: 2px;
       font-size: 1.2rem;
-      color: #4F4E4E;
-      padding-left: 5px; }
+      color: #4F4E4E; }
   .score p {
     margin: 0; }
 
@@ -753,7 +752,8 @@ input#menu {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: baseline;
-      align-items: baseline; }
+      align-items: baseline;
+  top: 7%; }
   .points__total {
     margin: 0; }
     .points__total--gained {
@@ -1041,6 +1041,9 @@ pre.error {
   max-width: 350px;
   position: relative;
   border-radius: 3px; }
+  @media screen and (min-width: 350px) {
+    .gameCard {
+      width: 95%; } }
   .gameCard p {
     font-size: 1.2rem;
     margin-top: 0;

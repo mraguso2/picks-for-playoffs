@@ -134,7 +134,6 @@ exports.getGames = async (req, res, next) => {
   });
 
   const userScore = calcScore(games);
-  console.log(userScore);
   res.locals.userScore = userScore;
 
   const mappedGames = {
