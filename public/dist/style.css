@@ -993,35 +993,35 @@ pre.error {
     width: 50%;
     height: auto; }
   .round__AFC--wildcard {
-    -ms-flex-order: 1;
-        order: 1; }
+    -ms-flex-order: 6;
+        order: 6; }
   .round.round__AFC--division {
-    -ms-flex-order: 3;
-        order: 3;
+    -ms-flex-order: 4;
+        order: 4;
     background-color: #dfeaf1; }
   .round.round__AFC--conference {
-    -ms-flex-order: 5;
-        order: 5; }
+    -ms-flex-order: 2;
+        order: 2; }
   .round.round__SB--superbowl {
-    -ms-flex-order: 7;
-        order: 7;
+    -ms-flex-order: 1;
+        order: 1;
     width: 100%;
     background-color: #ecf3f8;
     background: linear-gradient(-90deg, #ecf3f8, #dfeaf1); }
   .round.round__NFC--conference {
-    -ms-flex-order: 6;
-        order: 6;
+    -ms-flex-order: 3;
+        order: 3;
     background-color: #ecf3f8;
     position: relative;
     z-index: 3; }
   .round.round__NFC--division {
-    -ms-flex-order: 4;
-        order: 4;
+    -ms-flex-order: 5;
+        order: 5;
     position: relative;
     z-index: 2; }
   .round.round__NFC--wildcard {
-    -ms-flex-order: 2;
-        order: 2;
+    -ms-flex-order: 7;
+        order: 7;
     background-color: #ecf3f8;
     position: relative;
     z-index: 1; }

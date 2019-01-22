@@ -92,40 +92,40 @@
   }
 
   .round__AFC--wildcard {
-    order: 1;
+    order: 6;
   }
 
   .round.round__AFC--division {
-    order: 3;
+    order: 4;
     background-color: $roundOdd2;
   }
 
   .round.round__AFC--conference {
-    order: 5;
+    order: 2;
   }
 
   .round.round__SB--superbowl {
-    order: 7;
+    order: 1;
     width: 100%;
     background-color: $roundEven2;
     background: linear-gradient(-90deg, $roundEven2, $roundOdd2);
   }
 
   .round.round__NFC--conference {
-    order: 6;
+    order: 3;
     background-color: $roundEven2;
     position: relative;
     z-index: 3;
   }
 
   .round.round__NFC--division {
-    order: 4;
+    order: 5;
     position: relative;
     z-index: 2;
   }
 
   .round.round__NFC--wildcard {
-    order: 2;
+    order: 7;
     background-color: $roundEven2;
     position: relative;
     z-index: 1;
