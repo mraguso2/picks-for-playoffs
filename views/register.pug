@@ -4,17 +4,18 @@ block content
   .inner__form
     form.form(action="/register" method="POST")
       h2 Register
-      .name
-        .name--first
-          label(for="firstName") First Name
-          input(type="text" id="firstName" name="firstName" required)
-        .name--last
-          label(for="lastName") Last Name
-          input(type="text" id="lastName" name="lastName" required)
-      label(for="email") Email
-      input(type="email" id="email" name="email" required)
-      label(for="password") Password
-      input(type="password" id="password" name="password" required)
-      label(for="password-confirm") Confirm Password
-      input(type="password" id="password-confirm" name="password-confirm" required)
-      input.button(type="submit" value="Register ➔")
+      div.inner__form--container
+        .name
+          .name--first
+            label(for="firstName") First Name
+            input(type="text" id="firstName" name="firstName" required)
+          .name--last
+            label(for="lastName") Last Name
+            input(type="text" id="lastName" name="lastName" required)
+        label(for="email") Email
+        input(type="email" id="email" name="email" required)
+        label(for="password") Password
+        input(type="password" id="password" name="password" required)
+        label(for="password-confirm") Confirm Password
+        input(type="password" id="password-confirm" name="password-confirm" required)
+        input.button(type="submit" value="Register ➔")

@@ -22,14 +22,14 @@
   //   width: 600px;
   // }
 
-  & h5 {
+  & .math {
     margin-top: 25px;
     margin-bottom: 10px;
     line-height: 1.5;
   }
 
   & .sarcasm {
-    padding-left: 50px;
+    padding-left: 25px;
     color: $primary;
     font-weight: 600;
   }
@@ -39,7 +39,6 @@
   &__title {
     margin-top: 5px;
     margin-bottom: 5px;
-    font-size: 2.5rem;
     line-height: 1.3;
   }
 
@@ -66,35 +65,35 @@
   height: 175px;
   width: 100%;
   margin: 0;
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
   margin-top: 20px;
-  box-shadow: $shad;
+  // box-shadow: $shad;
 
   &__text {
     background: hsla(161, 41%, 80%, 0.55);
     text-align: center;
     line-height: 1.7;
+    padding: 0.75rem 1.5rem;
+    color: #045a44;
   }
 
   &__buttons {
     margin: 10px 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    width: 17rem;
 
-    &--middle {
-      margin: 0;
-      line-height: 1;
-      font-size: 1.3rem;
-      padding: 10px;
-      background: hsla(161, 41%, 80%, 0.55);
-    }
   }
 }
 
 .landingAction {
   margin-top: 0;
   padding: 10px;
+
+  &__register {
+    border: 2px solid #199473;
+  }
 
   &__login {
     background: hsl(163, 100%, 95%);

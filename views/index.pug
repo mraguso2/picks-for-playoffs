@@ -9,19 +9,18 @@ block content
             p.welcome__greet Welcome, #{user.firstName}!
             a.welcome__bracket(href="/bracket/2018") Go to your Bracket →
       .header__section--text
-        h5 32 Total NFL Teams
+        h5.math 32 Total NFL Teams
           br
           | 12 Make the Playoffs
         p.sarcasm #[em We Did The Math]
         .explaination
-          h6.explaination__title 20 teams watch the playoffs from home
+          h5.explaination__title 20 teams watch the playoffs from home
           p.explaination__content Meaning 20 team's fans watch #[em other] teams fight for the Vince Lombardi Trophy.
             br
-            span Some more regular than others...(ahem Browns, Buccaneers, Jets fans)
+            span Some fans more often than others...(you know who you are)
   if !user
     .section
-      p.section__text Sign up for Picks for Playoffs and enjoy the playoffs whether your team made it or not
+      p.section__text Sign up and enjoy the playoffs whether your team made it or not
       .section__buttons
         a.button.landingAction.landingAction__register(href="/register") Register
-        p.section__buttons--middle or
         a.button.landingAction.landingAction__login(href="/login") Login
