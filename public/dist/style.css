@@ -1429,10 +1429,12 @@ pre.error {
   margin-top: 20px; }
   .section__text {
     background: rgba(183, 225, 212, 0.55);
+    background: rgba(255, 255, 255, 0.65);
     text-align: center;
     line-height: 1.7;
     padding: 0.75rem 1.5rem;
-    color: #045a44; }
+    color: #045a44;
+    border-radius: 3px; }
   .section__buttons {
     margin: 10px 0;
     display: -ms-flexbox;
