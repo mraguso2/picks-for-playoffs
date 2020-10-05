@@ -2,7 +2,7 @@ extends layout
 
 block content
   .inner__form
-    form.form(action="/register" method="POST")
+    form.form.dbLimit(action="/register" method="POST")
       h2 Register
       div.inner__form--container
         .name
@@ -18,4 +18,4 @@ block content
         input(type="password" id="password" name="password" required)
         label(for="password-confirm") Confirm Password
         input(type="password" id="password-confirm" name="password-confirm" required)
-        input.button(type="submit" value="Register ➔")
+        input.button(type="submit" id="register" value="Register ➔")

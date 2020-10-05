@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const fetch = require('node-fetch');
-const parseString = require('xml2js').parseString;
+const { parseString } = require('xml2js');
 const promisify = require('es6-promisify');
 const { capIt } = require('../helpers');
 const { nflTeams } = require('../data/nflTeams');
@@ -71,7 +71,7 @@ exports.loadGames = async (req, res, next) => {
     res.redirect('back');
   }
   const xmlGames = await fetch(
-    `http://www.nfl.com/ajax/scorestrip?season=${season}&seasonType=POST&week=${week}`
+    `http://static.nfl.com/ajax/scorestrip?season=${season}&seasonType=POST&week=${week}`
   ).then(data => data.text());
 
   const promiseParseString = promisify(parseString);
@@ -124,7 +124,10 @@ exports.loadGames = async (req, res, next) => {
 };
 
 exports.checkAdminAccess = (req, res, next) => {
-  if (req.user.email !== 'michael.raguso@gmail.com') {
+  if (
+    req.user.email !== 'michael.raguso@gmail.com' ||
+    req.user.email !== 'paul.raguso@gortons.com'
+  ) {
     req.flash('error', 'You do not have access to view this page');
     return res.redirect('/');
   }

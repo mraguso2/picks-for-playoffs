@@ -34,3 +34,15 @@ inputGameScores.on('keyup', pickScore);
 // find all the total game Score submits buttons
 const submitScores = $$('span[data-score]');
 submitScores.on('click', pickScore);
+
+// prevent double click on register and login buttons
+const form = $('form.dbLimit');
+const formBtn = $('form.dbLimit input.button[type="submit"]');
+
+if (form) {
+  form.on('submit', () => {
+    form.preventDefault();
+    // console.log('submitted');
+    formBtn.classlist.add('disabled');
+  });
+}

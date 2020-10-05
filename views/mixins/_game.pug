@@ -33,7 +33,7 @@ mixin game(game = {})
           - const awayFullName = `${game.awayTeamLocation + " " + game.awayTeamName}`
           - const didHomeWin = !game.isOver ? '' : Math.max(game.homeTeamScore, game.awayTeamScore) === game.homeTeamScore ? 'winner' : 'loser'
           - const didAwayWin = !game.isOver ? '' : Math.max(game.homeTeamScore, game.awayTeamScore) === game.awayTeamScore ? 'winner' : 'loser'
-          p.teamTitles=`Home Team ${game.isOver ? `- score: ${game.homeTeamScore}` : ''}`
+          p.teamTitles=`Home ${game.isOver ? `- score: ${game.homeTeamScore}` : ''}`
           .team.homeTeam.football__icon(class=`${game.gameStarted ? 'disabled' : ''}` class=`${didHomeWin}` data-game=`${gameEid}` data-team=`${game.homeTeamName}` class=`${homeTeamPicked ? 'picked' : ''}`)
             if homeTeamPicked && game.isOver
               .circle.saved.spin(class=`${didHomeWin === 'winner' ? 'correct spin__correct' : ''}` class=`${didAwayWin === 'winner' ? 'incorrect  spin__incorrect' : ''}`)
@@ -41,7 +41,7 @@ mixin game(game = {})
             label(class=`${game.gameStarted ? 'disabled' : ''}` for=`${homeId}`) #{homeFullName}
             .homeTeam__record
               span= `${game.homeTeamRecord || ''}`
-          p.teamTitles=`Away Team ${game.isOver ? `- score: ${game.awayTeamScore}` : ''}`
+          p.teamTitles=`Away ${game.isOver ? `- score: ${game.awayTeamScore}` : ''}`
           .team.awayTeam.football__icon(class=`${game.gameStarted ? 'disabled' : ''}` class=`${didAwayWin}` data-game=`${gameEid}` data-team=`${game.awayTeamName}` class=`${awayTeamPicked ? 'picked' : ''}`)
             if awayTeamPicked && game.isOver
               .circle.saved.spin(class=`${didAwayWin === 'winner' ? 'correct  spin__correct' : ''}` class=`${didHomeWin === 'winner' ? 'incorrect  spin__incorrect' : ''}`)
@@ -50,7 +50,7 @@ mixin game(game = {})
             .awayTeam__record
               span= `${game.awayTeamRecord || ''}`
       .gameCard__points
-        p.gameCard__pick GUESS TOTAL POINTS
+        p.gameCard__pick TOTAL POINTS
         .gameCard__guess
           p.gameCard__tertiary Home Score + Away Score
           div.totalScore(class=`${game.gameStarted ? 'disabled' : ''}` class=`${game.isOver ? 'over' : ''}` data-total=`${gameEid}`)

@@ -1954,6 +1954,18 @@ inputGameScores.on('keyup', _pick.pickScore);
 var submitScores = (0, _bling.$$)('span[data-score]');
 submitScores.on('click', _pick.pickScore);
 
+// prevent double click on register and login buttons
+var form = (0, _bling.$)('form.dbLimit');
+var formBtn = (0, _bling.$)('form.dbLimit input.button[type="submit"]');
+
+if (form) {
+  form.on('submit', function () {
+    form.preventDefault();
+    // console.log('submitted');
+    formBtn.classlist.add('disabled');
+  });
+}
+
 /***/ })
 /******/ ]);
 //# sourceMappingURL=App.bundle.js.map

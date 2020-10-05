@@ -1,5 +1,5 @@
 mixin loginForm()
-  form.form(action="/login" method="POST")
+  form.form.dbLimit(action="/login" method="POST")
     h2 Login
     div.inner__form--container
       label(for="email") Email
@@ -7,4 +7,4 @@ mixin loginForm()
       label(for="password") Password
       input(type="password" id="password" name="password" required)
       a.loginToggleForgot(href="/forgot") Forgot My Password
-      input.button(type="submit" value="Log in ➔")
+      input.button(type="submit" id="login" value="Log in ➔")
