@@ -5,7 +5,19 @@ include mixins/_score
 block content
   //- .inner
   //-   h4 NFL Playoff Bracket
-  +score(year, userScore)
+
+  //- the fakebracket section
+  if locals.currentPath.substr(1,4) === 'fake'
+    - const postWeek = locals.currentPath.substr(-5)
+    .fakeBracket
+      h3.fakeBracket__title A Practice Bracket From 2019
+      p.fakeBracket__description Make your picks and click the button below to advance through the post season weeks
+      .section__buttons
+          button.button#fakeNextWeek.landingAction.landingAction__register #{postWeek === 'final' ? 'Reset Bracket' : 'Go To the Next Week'}
+
+  if !locals.currentPath.substr(1,4) === 'fake'
+    +score(year, userScore)
+
   .bracket
     .confTitles
       .confTitles__container.confTitles__container--AFC

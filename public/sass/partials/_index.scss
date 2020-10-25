@@ -106,6 +106,15 @@
     color: #199473;
     // border: 2px solid #199473;
   }
+
+  &__fakebracket {
+    background: hsl(163, 100%, 95%);
+    color: #199473;
+    box-shadow: 0 2px 15px hsla(165, 71%, 33%, 0.2);
+    min-width: 120px;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .landing {

@@ -1,7 +1,7 @@
 import '../sass/style.scss';
 
 import { $, $$ } from './modules/bling';
-import { pickTeam, pickScore, showSubmit, preventPick } from './modules/pick';
+import { pickTeam, pickScore, showSubmit, preventPick, fakeUpdateWeek } from './modules/pick';
 import toggleMenu from './modules/menu';
 
 // toggle menu
@@ -38,6 +38,10 @@ submitScores.on('click', pickScore);
 // prevent double click on register and login buttons
 const form = $('form.dbLimit');
 const formBtn = $('form.dbLimit input.button[type="submit"]');
+
+// prevent double click on register and login buttons
+const fakeUpdate = $$('button#fakeNextWeek');
+fakeUpdate.on('click', fakeUpdateWeek);
 
 if (form) {
   form.on('submit', () => {

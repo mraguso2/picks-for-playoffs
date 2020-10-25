@@ -986,7 +986,7 @@ exports.default = toggleMenu;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.preventPick = exports.pickScore = exports.showSubmit = exports.pickTeam = undefined;
+exports.preventPick = exports.pickScore = exports.showSubmit = exports.pickTeam = exports.fakeUpdateWeek = undefined;
 
 var _axios = __webpack_require__(12);
 
@@ -996,6 +996,78 @@ var _bling = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function updateQueryStringParameter(uri, key, value) {
+  var re = new RegExp('([?&])' + key + '=.*?(&|$)', 'i');
+  var separator = uri.indexOf('?') !== -1 ? '&' : '?';
+  if (uri.match(re)) {
+    return uri.replace(re, '$1' + key + '=' + value + '$2');
+  }
+
+  return uri + separator + key + '=' + value;
+}
+
+function removeLocStorageGames(gameIdList) {
+  // localStorage.clear();
+  gameIdList.map(function (game) {
+    return localStorage.removeItem(game);
+  });
+}
+
+function tagGameToLocStorage(gameIdList) {
+  var gamePicks = gameIdList.map(function (game) {
+    var gameVals = JSON.parse(localStorage.getItem(game));
+    if (!gameVals) return;
+
+    var addedGameId = Object.keys(gameVals).reduce(function (acc, cur) {
+      acc[cur + '_' + game] = gameVals[cur];
+      return acc;
+    }, {});
+    return addedGameId;
+  }).filter(Boolean);
+
+  var mergedGamePickVals = gamePicks.length === 0 ? {} : Object.assign.apply(Object, _toConsumableArray(gamePicks));
+  return mergedGamePickVals;
+}
+
+var fakeUpdateWeek = exports.fakeUpdateWeek = function updateFakeWeek() {
+  var gameIds = ['2019010500', '2019010501', '2019010601', '2019010600', '2019011200', '2019011301', '2019011300', '2019011201', '2019012001', '2019012000', '2019020300'];
+
+  var current = window.location.pathname.split('/')[2];
+  var next = void 0;
+  switch (current) {
+    case 'wildcard':
+      next = 'division';
+      break;
+    case 'division':
+      next = 'conference';
+      break;
+    case 'conference':
+      next = 'superbowl';
+      break;
+    case 'superbowl':
+      next = 'final';
+      break;
+    case 'final':
+      removeLocStorageGames(gameIds);
+      next = 'wildcard';
+      break;
+    default:
+      removeLocStorageGames(gameIds);
+      next = 'wildcard';
+  }
+
+  var userPicks = tagGameToLocStorage(gameIds);
+  var searchQuery = Object.keys(userPicks).map(function (key) {
+    return key + '=' + userPicks[key];
+  }).join('&');
+
+  var lastForwardSlash = window.location.href.lastIndexOf('/');
+  var nextPage = window.location.href.substr(0, lastForwardSlash) + '/' + next + '?' + searchQuery;
+  window.location.assign(nextPage);
+};
+
 var pickTeam = exports.pickTeam = function pickedATeam() {
   var _this = this;
 
@@ -1003,6 +1075,44 @@ var pickTeam = exports.pickTeam = function pickedATeam() {
   var eid = this.name;
   var team = this.id.split('_')[1];
   var year = window.location.href.slice(-4);
+
+  // Handle fake bracket for guest user
+  if (window.location.pathname.substr(1, 4) === 'fake') {
+    // const gameId = ${eid}
+
+    // window.location.search = updateQueryStringParameter(window.location.search, eid, team);
+    // remove picked class from both teams
+    var storedPicks = localStorage.getItem('' + eid);
+    var gamePicks = JSON.parse(storedPicks);
+
+    var updatedGamePicks = void 0;
+    if (gamePicks) {
+      gamePicks.winningTeamPick = team;
+      updatedGamePicks = gamePicks;
+    } else {
+      updatedGamePicks = { winningTeamPick: team };
+    }
+
+    localStorage.setItem('' + eid, JSON.stringify(updatedGamePicks));
+
+    var teamsInGame = Array.from((0, _bling.$$)('[data-game="' + eid + '"]'));
+    teamsInGame.map(function (option) {
+      return option.classList.remove('picked');
+    });
+
+    // update teams picked
+    var teamPicked = (0, _bling.$)('[data-game="' + eid + '"][data-team="' + team + '"]');
+    teamPicked.classList.toggle('picked');
+
+    // add animation
+    teamPicked.classList.add('football__icon--float');
+    // // arrow fn so will keep access to this obj
+    setTimeout(function () {
+      return teamPicked.classList.remove('football__icon--float');
+    }, 2500);
+    this.disabled = false;
+    return;
+  }
 
   _axios2.default.post('/api/v1/pickWinner/' + year + '/' + eid + '/' + team).then(function (res) {
     if (res.data.action === 'invalid') {
@@ -1077,6 +1187,29 @@ var pickScore = exports.pickScore = function totalScore(e) {
   }
   if (isNaN(score)) {
     // TODO add simple popup on game card - Please enter a number
+    return;
+  }
+
+  // Handle fake bracket for guest user
+  if (window.location.pathname.substr(1, 4) === 'fake') {
+    var storedPicks = localStorage.getItem('' + eid);
+    var gamePicks = JSON.parse(storedPicks);
+
+    var updatedGamePicks = void 0;
+    if (gamePicks) {
+      gamePicks.totalGameScore = score;
+      updatedGamePicks = gamePicks;
+    } else {
+      updatedGamePicks = { totalGameScore: score };
+    }
+
+    localStorage.setItem('' + eid, JSON.stringify(updatedGamePicks));
+
+    var saved = (0, _bling.$)('[data-total="' + eid + '"]');
+    saved.classList.add('totalScore__show');
+    setTimeout(function () {
+      return saved.classList.remove('totalScore__show');
+    }, 1500);
     return;
   }
 
@@ -1957,6 +2090,10 @@ submitScores.on('click', _pick.pickScore);
 // prevent double click on register and login buttons
 var form = (0, _bling.$)('form.dbLimit');
 var formBtn = (0, _bling.$)('form.dbLimit input.button[type="submit"]');
+
+// prevent double click on register and login buttons
+var fakeUpdate = (0, _bling.$$)('button#fakeNextWeek');
+fakeUpdate.on('click', _pick.fakeUpdateWeek);
 
 if (form) {
   form.on('submit', function () {

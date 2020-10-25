@@ -58,6 +58,10 @@ router.get(
   gameController.bracket
 );
 
+// get fakegames
+// this is just to show the user/anyone interested in what it looks like (flaws in how it all works)
+router.get('/fakebracket/:postWeek', gameController.getFakeGames, gameController.bracket);
+
 router.get('/top', gameController.top);
 router.get('/how-to-play', gameController.rules);
 

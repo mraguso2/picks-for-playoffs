@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const promisify = require('es6-promisify');
 
+const { postWeek18, postWeek19, postWeek20, postWeek22 } = require('../data/fakeData').fakeData;
+
 const User = mongoose.model('User');
 const Game = mongoose.model('Game');
 const Pick = mongoose.model('Pick');
@@ -142,7 +144,7 @@ exports.getGames = async (req, res, next) => {
     conference: {},
     superbowl: {}
   };
-
+  // console.log(JSON.stringify({ games }));
   mappedGames.wildcard.AFC = splitGames(games, '18', 'AFC');
   mappedGames.wildcard.NFC = splitGames(games, '18', 'NFC');
   mappedGames.division.AFC = splitGames(games, '19', 'AFC');
@@ -150,6 +152,120 @@ exports.getGames = async (req, res, next) => {
   mappedGames.conference.AFC = splitGames(games, '20', 'AFC');
   mappedGames.conference.NFC = splitGames(games, '20', 'NFC');
   mappedGames.superbowl.SB = splitGames(games, '22', 'SB');
+  // res.json({ mappedGames });
+  res.locals.games = mappedGames;
+  next();
+};
+
+function setGameOver(games) {
+  const updateGames = games.map(game => {
+    const newGame = Object.assign({}, game);
+    newGame.isOver = true;
+    newGame.gameStarted = true;
+    return newGame;
+  });
+
+  return updateGames;
+}
+
+function buildGamePicks(query) {
+  const buildPicks = Object.keys(query).reduce((acc, cur) => {
+    const [pickType, game] = cur.split('_');
+    // check if acc array contains an obj with eid === game
+    const gameIndx = acc.findIndex(gm => gm.eid === game);
+
+    if (gameIndx === -1) {
+      const tempObj = {
+        eid: game
+      };
+      tempObj[pickType] = query[cur]; // could have done variable obj keys but I didnt
+      acc.push(tempObj);
+      return acc;
+    }
+    acc[gameIndx][pickType] = query[cur];
+    return acc;
+  }, []);
+  return buildPicks;
+}
+
+exports.getFakeGames = async (req, res, next) => {
+  // find out which week of data to send back
+  const { postWeek } = req.params;
+  const { query } = req;
+
+  let games;
+  switch (postWeek) {
+    case 'wildcard':
+      games = postWeek18.games;
+      break;
+    case 'division':
+      games = [...setGameOver(postWeek18.games), ...postWeek19.games];
+      break;
+    case 'conference':
+      games = [
+        ...setGameOver(postWeek18.games),
+        ...setGameOver(postWeek19.games),
+        ...postWeek20.games
+      ];
+      break;
+    case 'superbowl':
+      games = [
+        ...setGameOver(postWeek18.games),
+        ...setGameOver(postWeek19.games),
+        ...setGameOver(postWeek20.games),
+        ...postWeek22.games
+      ];
+      break;
+    case 'final':
+      games = [
+        ...setGameOver(postWeek18.games),
+        ...setGameOver(postWeek19.games),
+        ...setGameOver(postWeek20.games),
+        ...setGameOver(postWeek22.games)
+      ];
+      break;
+    default:
+      games = [];
+  }
+
+  // need to populate picks from query
+  const picks = buildGamePicks(query);
+  const gamesWithPicks = picks.map(pick => {
+    const updatedGames = games
+      .filter(game => game.eid === pick.eid)
+      .map(game => {
+        game.picks = [pick];
+        return game;
+      });
+    return updatedGames;
+  });
+
+  const gamesWithPicksAndFlatten = gamesWithPicks.reduce((acc, val) => acc.concat(val), []);
+  const gameIdsWithPicks = gamesWithPicksAndFlatten.map(gm => gm.eid);
+  const otherGames = games.filter(game => {
+    const included = gameIdsWithPicks.includes(game.eid);
+    return !included;
+  });
+
+  const newGameSet = [...gamesWithPicksAndFlatten, ...otherGames];
+  const userScore = calcScore(newGameSet);
+
+  res.locals.userScore = userScore;
+
+  const mappedGames = {
+    wildcard: {},
+    division: {},
+    conference: {},
+    superbowl: {}
+  };
+
+  mappedGames.wildcard.AFC = splitGames(newGameSet, '18', 'AFC');
+  mappedGames.wildcard.NFC = splitGames(newGameSet, '18', 'NFC');
+  mappedGames.division.AFC = splitGames(newGameSet, '19', 'AFC');
+  mappedGames.division.NFC = splitGames(newGameSet, '19', 'NFC');
+  mappedGames.conference.AFC = splitGames(newGameSet, '20', 'AFC');
+  mappedGames.conference.NFC = splitGames(newGameSet, '20', 'NFC');
+  mappedGames.superbowl.SB = splitGames(newGameSet, '22', 'SB');
   // res.json({ mappedGames });
   res.locals.games = mappedGames;
   next();

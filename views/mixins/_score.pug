@@ -8,7 +8,7 @@ mixin score(year, userScore = {})
     - const guessedPointsOff57 = userScore.pointsDiff.off57 ? userScore.pointsDiff.off57 * 1 : 0
     - const totalPoints = (userScore.correctPick * 3) + guessedPointsOff0 + guessedPointsOff1 + guessedPointsOff2 + guessedPointsOff34 + guessedPointsOff57
     .score__header
-      h4.score__header--title #{user.firstName + "'s"} Score
+      h4.score__header--title #{user ? user.firstName + "'s" : Guest} Score
       p.score__header--season #{year} season
     .points
       p.points__total

@@ -1,0 +1,48 @@
+.fakeBracket {
+  width: 90%;
+  background: white;
+  box-shadow: $shad;
+  left: 0;
+  right: 0;
+  margin: 25px auto;
+  max-width: 400px;
+  color: #303030;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  border-radius: $radius;
+  padding-left: 10px;
+  padding-right: 10px;
+  align-items: center;
+
+  &__title {
+    font-size: 1.75rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 0;
+  }
+
+  &__description {
+    line-height: 1.4;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+}
+
+
+.practiceSection {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 30px 20px;
+
+  // margin-bottom: 30px;
+  &__title {
+    text-align: center;
+    margin-top: 0;
+  }
+}
