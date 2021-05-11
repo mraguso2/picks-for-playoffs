@@ -36,7 +36,7 @@
     "html-to-text": "3.2.0",
     "juice": "4.0.2",
     "md5": "2.2.1",
-    "mongoose": "5.1.0",
+    "mongoose": "5.7.5",
     "mongoose-mongodb-errors": "0.0.2",
     "node-fetch": "^2.6.1",
     "nodemailer": "3.1.5",
