@@ -4,6 +4,8 @@ block content
   .inner__form
     form.form.dbLimit(action="/register" method="POST")
       h2 Register
+      p This project is no longer accepting new users. Checkout the fake bracket walkthrough to see how it would have operated.
+      a.loginToggleForgot(href="/fakebracket/wildcard") Fake Bracket
       div.inner__form--container
         .name
           .name--first
@@ -18,4 +20,4 @@ block content
         input(type="password" id="password" name="password" required)
         label(for="password-confirm") Confirm Password
         input(type="password" id="password-confirm" name="password-confirm" required)
-        input.button(type="submit" id="register" value="Register ➔")
+        input.button.notAllowed(type="submit" id="register" value="Register ➔")
